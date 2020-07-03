@@ -11,7 +11,7 @@ struct FModDependencyDesc
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, Category = "Dependency")
 	FString MinimalVersion;
 };
 
@@ -67,9 +67,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Mod Actor")
 	void InitAfter(FString modKeyAfter, FString minimalVersion);
 
-	UPROPERTY(BlueprintReadOnly, Category = "Mod Actor")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mod Actor")
 	TMap<FString, FModDependencyDesc> InitBeforeOthers;		// key: modKey
 	
-	UPROPERTY(BlueprintReadOnly, Category = "Mod Actor")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mod Actor")
 	TMap<FString, FModDependencyDesc> InitAfterOthers;		// key: modKey
 };
