@@ -6,6 +6,17 @@
 #include "GameFramework/Actor.h"
 #include "ModActor.generated.h"
 
+USTRUCT(BlueprintType)
+struct FModDependencyDesc
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	FString MinimalVersion;
+};
+
+
+
 UCLASS()
 class MODCOREPLUGIN_API AModActor : public AActor
 {
@@ -49,4 +60,16 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Mod Actor")
 	FString GetModKey() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Mod Actor")
+	void InitBefore(FString modKeyBefore, FString minimalVersion);
+
+	UFUNCTION(BlueprintCallable, Category = "Mod Actor")
+	void InitAfter(FString modKeyAfter, FString minimalVersion);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Mod Actor")
+	TMap<FString, FModDependencyDesc> InitBeforeOthers;		// key: modKey
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Mod Actor")
+	TMap<FString, FModDependencyDesc> InitAfterOthers;		// key: modKey
 };

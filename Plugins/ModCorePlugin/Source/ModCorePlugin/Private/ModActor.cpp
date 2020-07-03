@@ -2,6 +2,7 @@
 
 
 #include "ModActor.h"
+#include "..\Public\ModActor.h"
 
 // Sets default values
 AModActor::AModActor()
@@ -38,4 +39,18 @@ void AModActor::InitMod()
 FString AModActor::GetModKey() const
 {
 	return FString::Printf(TEXT("%s:%s"), *Author, *ModName);
+}
+
+void AModActor::InitBefore(FString modKeyBefore, FString minimalVersion)
+{
+	FModDependencyDesc desc;
+	desc.MinimalVersion = minimalVersion;
+	InitBeforeOthers.Add(modKeyBefore, desc);
+}
+
+void AModActor::InitAfter(FString modKeyAfter, FString minimalVersion)
+{
+	FModDependencyDesc desc;
+	desc.MinimalVersion = minimalVersion;
+	InitAfterOthers.Add(modKeyAfter, desc);
 }
